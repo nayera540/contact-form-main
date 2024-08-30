@@ -29,7 +29,7 @@ body {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    max-width: 30rem;
+    max-width: 33rem;
 }
 
 form {
@@ -41,6 +41,7 @@ form {
 .names {
     display: flex;
     flex-direction: row;
+    gap: 2rem;
 }
 
 .mail {
@@ -90,6 +91,7 @@ form {
 .second__name input:hover,
 .first__name input:hover {
     border: 1px solid var(--green-600);
+    cursor: pointer;
 }
 
 .message input:focus,
@@ -97,5 +99,39 @@ form {
 .second__name input:focus,
 .first__name input:focus {
     border: 1px solid var(--green-600);
+    cursor: pointer;
 }
 
+.btn__submit{
+    height: 2.5rem;
+    color: #fff;
+    background-color: var(--green-600);
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.btn__submit:hover{
+    background-color: hsl(169deg 91.11% 14.82%);
+    cursor: pointer;
+}
+
+.first__name input, .second__name input{
+    width: 14rem;
+    height: 2.3rem;
+    padding-left: 0.8rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    
+}
+
+.labels{
+    font-size: 14px;
+    color: var(--grey-900);
+    margin-bottom: 0.5rem;
+}
+
+.names labels{
+    margin-bottom: 0.5rem;
+}
