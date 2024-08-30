@@ -114,7 +114,13 @@ function Form({
             {isTypeEmpty ? <span className="error">Please select a query type</span> : ""}
             <div className="message">
                 <label for="message" className="labels">Message <span className="required">*</span></label>
-                <input type="text" name="message" autoComplete="false" onChange={(e) => setMessage(e.target.value)} />
+                <textarea
+                    name="message"
+                    rows="4"
+                    cols="33"
+                    autoComplete="off"
+                    onChange={(e) => setMessage(e.target.value)}
+                />
             </div>
             {isMessageEmpty ? <span className="error">Please select a query type</span> : ""}
             <div className="check">
