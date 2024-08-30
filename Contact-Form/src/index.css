@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 16px;
+}
+
+:root {
+    --green-200: hsl(148, 38%, 91%);
+    --green-600: hsl(169, 82%, 27%);
+    --red: hsl(0, 66%, 54%);
+    --grey-500: hsl(186, 15%, 59%);
+    --grey-900: hsl(187, 24%, 22%);
+}
+
+body {
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: var(--green-200);
+}
+
+.app {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    max-width: 30rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.names {
+    display: flex;
+    flex-direction: row;
+}
+
+.mail {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio__btn {
+    display: flex;
+    flex-direction: column;
+}
+
+.btns {
+    display: flex;
+    flex-direction: row;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    font-size: 26px;
+    color: var(--grey-900);
+    margin-bottom: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.required {
+    color: var(--green-600);
+    margin-left: 3px;
+}
+
+.message input,
+.mail input,
+.second__name input,
+.first__name input {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    border: 1px solid var(--grey-500);
+}
+
+.message input:hover,
+.mail input:hover,
+.second__name input:hover,
+.first__name input:hover {
+    border: 1px solid var(--green-600);
+}
+
+.message input:focus,
+.mail input:focus,
+.second__name input:focus,
+.first__name input:focus {
+    border: 1px solid var(--green-600);
+}
+
