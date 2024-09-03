@@ -222,3 +222,19 @@ form {
 input[type="radio"]:checked, input[type='checkbox']:checked{
     accent-color: var(--green-600);
 }
+
+.success__container{
+    background-color: var(--grey-900);
+    display: block;
+    max-width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1.5rem;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.success__container p{
+    margin-top: 0.5rem;
+}
+

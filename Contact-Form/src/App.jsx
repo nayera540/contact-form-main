@@ -56,6 +56,14 @@ function App() {
         setIsSubmitted(true);
         setType("");
         setChecked(false);
+        setIsEmailCorrect(true);
+        setIsFirstNameEmpty(false);
+        setIsMessageEmpty(false);
+        setIsSecondNameEmpty(false);
+        setIsTypeEmpty(false);
+        setIsChecked(false);
+        setIsEmailEmpty(false);
+
         if (formRef.current) {
             formRef.current.reset();
         }
