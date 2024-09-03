@@ -87,7 +87,7 @@ form {
     border: 1px solid var(--grey-500);
 }
 
-.message textarea:hover,
+
 .mail input:hover,
 .second__name input:hover,
 .first__name input:hover {
@@ -95,12 +95,16 @@ form {
     cursor: pointer;
 }
 
-.message textarea:focus,
+
 .mail input:focus,
 .second__name input:focus,
 .first__name input:focus {
     border: 1px solid var(--green-600);
     cursor: pointer;
+}
+
+.message textarea:focus, .message textarea:hover{
+    border: 1px solid var(--green-600);
 }
 
 .btn__submit{
@@ -152,6 +156,15 @@ form {
     border-color: var(--red);
 }
 
+.error{
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 1rem;
+}
+
+
+
+
 .btns div{
     width: 15.5rem;
     height: 2.5rem;
@@ -163,9 +176,49 @@ form {
 }
 
 .radio__label{
-    font-size: 14px !important;
+    font-size: 15px !important;
 }
 
 .check{
     margin: 1rem 0;
+}
+
+.radio__label svg {
+    margin-left: 0.5rem; /* Adds space between the text and the SVG */
+    vertical-align: middle;
+}
+.check__container {
+    display: flex;
+    align-items: center; 
+}
+.checkmark{
+    margin-left: 0.8rem;
+    font-size: 14px;
+    color: var(--grey-900);
+    margin-top: -2px;
+}
+
+.checkmark:hover{
+    cursor: pointer;
+}
+
+
+.radio__label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio__label input{
+    margin-right: 0.5rem;
+}
+
+.enquiry__selected, .request__selected{
+    background-color: var(--green-200);
+    border: 1px solid var(--green-600) !important;
+}
+
+input[type="radio"]:checked, input[type='checkbox']:checked{
+    accent-color: var(--green-600);
 }

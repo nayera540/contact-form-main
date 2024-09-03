@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 
 function App() {
     const [firstName, setFirstName] = useState(null);
     const [isFirstNameEmpty, setIsFirstNameEmpty] = useState(false);
-    const [SecondName, setSecondName] = useState(null);
+    const [secondName, setSecondName] = useState(null);
     const [isSecondNameEmpty, setIsSecondNameEmpty] = useState(false);
     const [email, setEmail] = useState(null);
     const [isEmailEmpty, setIsEmailEmpty] = useState(false);
@@ -14,11 +15,50 @@ function App() {
     const [checked, setChecked] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isEmailCorrect, setIsEmailCorrect] = useState(true);
 
     const formRef = useRef(0);
 
+    useEffect(function(){
+        formRef.current.querySelector('input[name="first"]').focus();
+    }, []);
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
+
+        setIsFirstNameEmpty(firstName === null || firstName === "");
+        console.log(firstName);
+
+        setIsSecondNameEmpty(secondName === null || secondName === "");
+        setIsEmailEmpty(email === null || email === "");
+        setIsTypeEmpty(type === "");
+        setIsEmailCorrect(validateEmail(email));
+        setIsMessageEmpty(message === null || message === "");
+        setIsChecked(checked === false);
+
+        if (
+            firstName === null ||
+            secondName === null ||
+            email === null ||
+            !type ||
+            message === null ||
+            !checked ||
+            !validateEmail(email)
+        ) {
+            return;
+        }
+
+        setIsSubmitted(true);
+        setType("");
+        setChecked(false);
+        if (formRef.current) {
+            formRef.current.reset();
+        }
     }
 
     return (
@@ -42,6 +82,8 @@ function App() {
                     isChecked={isChecked}
                     type={type}
                     checked={checked}
+                    isEmailCorrect={isEmailCorrect}
+                    setMessage = {setMessage}
                 />
             </div>
         </>
@@ -63,46 +105,94 @@ function Form({
     handleSubmit,
     formRef,
     type,
-    checked
+    checked,
+    isEmailCorrect,
+    setMessage,
 }) {
     return (
         <form onSubmit={handleSubmit} ref={formRef}>
             <div className="names">
                 <div className={`first__name ${isFirstNameEmpty ? "error" : ""}`}>
-                    <label for="first" className="labels">First Name <span className="required">*</span></label>
-                    <input type="text" name="first" autoComplete="false" onChange={(e) => setFirstName(e.target.value)} />
+                    <label for="first" className="labels">
+                        First Name <span className="required">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="first"
+                        autoComplete="false"
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    {isFirstNameEmpty ? (
+                        <span className="error">This field is required</span>
+                    ) : (
+                        ""
+                    )}
                 </div>
-                {isFirstNameEmpty ? <span className="error">This field is required</span> : ""}
+
                 <div className={`second__name ${isSecondNameEmpty ? "error" : ""}`}>
-                    <label for="second" className="labels">Second Name <span className="required">*</span></label>
-                    <input type="text" name="second" autoComplete="false" onChange={(e) => setSecondName(e.target.value)} />
+                    <label for="second" className="labels">
+                        Second Name <span className="required">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="second"
+                        autoComplete="false"
+                        onChange={(e) => setSecondName(e.target.value)}
+                    />
+                    {isSecondNameEmpty ? (
+                        <span className="error">This field is required</span>
+                    ) : (
+                        ""
+                    )}
                 </div>
-                {isSecondNameEmpty ? <span className="error">This field is required</span> : ""}
             </div>
             <div className={`mail ${isEmailEmpty ? "error" : ""}`}>
-                <label for="mail" className="labels">Email Address <span className="required">*</span></label>
-                <input type="text" name="mail" autoComplete="false" onChange={(e) => setEmail(e.target.value)} />
+                <label for="mail" className="labels">
+                    Email Address <span className="required">*</span>
+                </label>
+                <input
+                    type="text"
+                    name="mail"
+                    autoComplete="false"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {isEmailEmpty ? (
+                    <span className="error">This field is required</span>
+                ) : isEmailCorrect ? (
+                    ""
+                ) : (
+                    <span className="error">Please enter a valid email address</span>
+                )}
             </div>
-            {isEmailEmpty ? <span className="error">This field is required</span> : ""}
+
             <div className="radio__btn">
-                <label className="labels">Query Type <span className="required">*</span></label>
+                <label className="labels">
+                    Query Type <span className="required">*</span>
+                </label>
                 <div className="btns">
-                    <div className={`Enquiry ${type === 'enquiry' ? "enquiry__selected" : ""}`}>
+                    <div
+                        className={`Enquiry ${type === "enquiry" ? "enquiry__selected" : ""
+                            }`}
+                    >
                         <label className="radio__label">
                             <input
                                 type="radio"
-                                name="enquiry"
+                                name="queryType"
                                 value="enquiry"
                                 onChange={(e) => setType(e.target.value)}
                             />
                             General Enquiry
                         </label>
                     </div>
-                    <div className={`Request ${type === 'request' ? "request__selected" : ""}`}>
+
+                    <div
+                        className={`Request ${type === "request" ? "request__selected" : ""
+                            }`}
+                    >
                         <label className="radio__label">
                             <input
                                 type="radio"
-                                name="request"
+                                name="queryType"
                                 value="request"
                                 onChange={(e) => setType(e.target.value)}
                             />
@@ -110,10 +200,17 @@ function Form({
                         </label>
                     </div>
                 </div>
+                {isTypeEmpty ? (
+                    <span className="error">Please select a query type</span>
+                ) : (
+                    ""
+                )}
             </div>
-            {isTypeEmpty ? <span className="error">Please select a query type</span> : ""}
+
             <div className="message">
-                <label for="message" className="labels">Message <span className="required">*</span></label>
+                <label for="message" className="labels">
+                    Message <span className="required">*</span>
+                </label>
                 <textarea
                     name="message"
                     rows="4"
@@ -121,23 +218,45 @@ function Form({
                     autoComplete="off"
                     onChange={(e) => setMessage(e.target.value)}
                 />
+                {isMessageEmpty ? (
+                    <span className="error">This field is required</span>
+                ) : (
+                    ""
+                )}
             </div>
-            {isMessageEmpty ? <span className="error">Please select a query type</span> : ""}
+
             <div className="check">
                 <label class="check__container">
-                    <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} />
-                    <span class="checkmark"></span>
-                    I consent to being contacted by the team
+                    <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(e) => setChecked(e.target.checked)}
+                    />
+                    <span class="checkmark">
+                        I consent to being contacted by the team
+                    </span>
                 </label>
+                {isChecked ? (
+                    <span className="error">You must agree to the terms</span>
+                ) : null}
             </div>
-            {isChecked ? (
-                <span className="error">You must agree to the terms</span>
-            ) : null}
-            <button type="submit" className="btn__submit">Submit</button>
+
+            <button type="submit" className="btn__submit">
+                Submit
+            </button>
         </form>
     );
 }
 
-function SuccessState() { }
+function SuccessState() {
+    return (
+        <div className="success__container">
+            <h2>
+                <img src="/images/icon-success-check.svg" /> Message Sent!
+            </h2>
+            <p>Thanks for completing the form. We'll be in touch soon!</p>
+        </div>
+    );
+}
 
 export default App;
